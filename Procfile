@@ -1,2 +1,2 @@
-web: gunicorn coronahelp.basicpage:coronahelp
+web: gunicorn coronahelp.basicpage:app
 
