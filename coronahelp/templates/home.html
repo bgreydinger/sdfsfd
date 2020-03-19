@@ -7,12 +7,121 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../static/request.css">
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.overlay {
+  height: 0%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-y: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: -285px;
+  right: 45px;
+  font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay {overflow-y: auto;}
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
 </style>
 <body>
+
+<!-- Overlay req -->
+<div id="reqoverlay" class="overlay">
+  <div class="overlay-content">
+    <div class="nerb">
+      <a href="javascript:void(0)" class="closebtn" onclick="closereqNav()">&times;</a>
+      <div class="container">
+        <form id="contact" action="" method="post">
+          <h3>Request help in your neighborhood</h3>
+          <fieldset>
+            <input placeholder="Your name" type="text" tabindex="1" required autofocus>
+          </fieldset>
+          <fieldset>
+            <input placeholder="Your Phone Number" type="tel" tabindex="2" required>
+          </fieldset>
+          <fieldset>
+            <input placeholder="Your Address" type="text" tabindex="3" required>
+          </fieldset>
+          <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay del -->
+<div id="deloverlay" class="overlay">
+  <div class="overlay-content">
+    <div class="nerb">
+      <a href="javascript:void(0)" class="closebtn" onclick="closedelNav()">&times;</a>
+      <div class="container">
+        <form id="contact" action="" method="post">
+          <h3>Deliver and help in your neighborhood</h3>
+          <fieldset>
+            <input placeholder="Your name" type="text" tabindex="1" required autofocus>
+          </fieldset>
+          <fieldset>
+            <input placeholder="Your Phone Number" type="tel" tabindex="2" required>
+          </fieldset>
+          <fieldset>
+            <input placeholder="Your Address" type="text" tabindex="3" required>
+          </fieldset>
+          <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Navbar -->
 <div class="w3-top">
@@ -38,46 +147,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
   <h1 class="w3-margin w3-jumbo">CORONAHELP</h1>
   <p class="w3-xlarge">Help deliver groceries and medicine to elderly in your community</p>
-  <form action="/request/">
-    <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Request Help</button>
-  </form>
-  <form action="/deliver/">
-    <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Give Help</button>
-  </form>
+  <button onclick="openreqNav()" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Request Help</button>
+  <button onclick="opendelNav()" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Give Help</button>
 </header>
 
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
-      <h1>Lorem Ipsum</h1>
-      <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+      <h1>Help your community</h1>
+      <h5 class="w3-padding-32">Help your elderly neighbors stay safe from Covid-19 in your community. Deliver groceries, medicine, and staples when you get them for yourself and drop off at your neighbor's door.</h5>
 
-      <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p class="w3-text-grey">Covid-19 disproportionally affects the elderly with near 30% hospitalization and 9% mortality rate. Help keep our elders safe.</p>
     </div>
 
     <div class="w3-third w3-center">
       <i class="fa fa-anchor w3-padding-64 w3-text-red"></i>
-    </div>
-  </div>
-</div>
-
-<!-- Second Grid -->
-<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
-  <div class="w3-content">
-    <div class="w3-third w3-center">
-      <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i>
-    </div>
-
-    <div class="w3-twothird">
-      <h1>Lorem Ipsum</h1>
-      <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
-
-      <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
   </div>
 </div>
@@ -91,6 +176,22 @@ function myFunction() {
   } else {
     x.className = x.className.replace(" w3-show", "");
   }
+}
+
+function openreqNav() {
+  document.getElementById("reqoverlay").style.height = "100%";
+}
+
+function opendelNav() {
+  document.getElementById("deloverlay").style.height = "100%";
+}
+
+function closereqNav() {
+  document.getElementById("reqoverlay").style.height = "0%";
+}
+
+function closedelNav() {
+  document.getElementById("deloverlay").style.height = "0%";
 }
 </script>
 

@@ -13,13 +13,12 @@
   text-rendering: optimizeLegibility;
 }
 
-body {
+.nerb {
   font-family: "Lato", Helvetica, Arial, sans-serif;
   font-weight: 100;
   font-size: 12px;
   line-height: 30px;
   color: #777;
-  background: #f44336;
 }
 
 .container {
@@ -27,6 +26,7 @@ body {
   width: 100%;
   margin: 0 auto;
   position: relative;
+  top: -100px;
 }
 
 #contact input[type="text"],
