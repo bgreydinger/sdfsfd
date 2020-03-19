@@ -29,6 +29,115 @@
   top: -100px;
 }
 
+
+form {
+  background: white;
+  width: 100%;
+}
+
+.form-field {
+  position: relative;
+}
+
+.success-wrapper {
+  background: white;
+  width: 350px;
+  box-shadow: 0 0 5px rgba(65, 67, 144, 0.1);
+  padding: 50px;
+}
+
+.errors {
+  list-style: none;
+  margin: 10px 0;
+  position: absolute;
+  z-index: 10;
+  right: -222px;
+  top: 0;
+  bottom: 0;
+  background: #fae7ea;
+  padding: 9px 15px;
+  border-radius: 3px;
+  border: 1px solid #e1c5c5;
+  color: #8d7575;
+  width: 182px;
+  text-align: center;
+  height: fit-content;
+  margin: auto;
+}
+
+i {
+  position: absolute;
+  margin: auto;
+  top: 4px;
+  bottom: 0;
+  right: 16px;
+  height: fit-content;
+  color: grey;
+}
+
+.g-recaptcha div {
+  margin: auto;
+}
+
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.overlay {
+  height: 0%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-y: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: -285px;
+  right: 45px;
+  font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay {overflow-y: auto;}
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
+
 #contact input[type="text"],
 #contact input[type="email"],
 #contact input[type="tel"],

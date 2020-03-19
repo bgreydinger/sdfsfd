@@ -1,73 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<title>Main Page</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'layout.html' %}
+
+{% block styles %}
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../static/request.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-.fa-anchor,.fa-coffee {font-size:200px}
+{% endblock %}
 
-body {
-  font-family: 'Lato', sans-serif;
-}
-
-.overlay {
-  height: 0%;
-  width: 100%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.9);
-  overflow-y: hidden;
-  transition: 0.5s;
-}
-
-.overlay-content {
-  position: relative;
-  top: 25%;
-  width: 100%;
-  text-align: center;
-  margin-top: 30px;
-}
-
-.overlay a {
-  padding: 8px;
-  text-decoration: none;
-  font-size: 36px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-.overlay a:hover, .overlay a:focus {
-  color: #f1f1f1;
-}
-
-.overlay .closebtn {
-  position: absolute;
-  top: -285px;
-  right: 45px;
-  font-size: 60px;
-}
-
-@media screen and (max-height: 450px) {
-  .overlay {overflow-y: auto;}
-  .overlay a {font-size: 20px}
-  .overlay .closebtn {
-  font-size: 40px;
-  top: 15px;
-  right: 35px;
-  }
-}
-</style>
+{% block content %}
 <body>
 
 <!-- Overlay req -->
@@ -76,20 +17,36 @@ body {
     <div class="nerb">
       <a href="javascript:void(0)" class="closebtn" onclick="closereqNav()">&times;</a>
       <div class="container">
-        <form id="contact" action="" method="post">
+        <form id="contact" action="/" method="POST">
           <h3>Request help in your neighborhood</h3>
-          <fieldset>
-            <input placeholder="Your name" type="text" tabindex="1" required autofocus>
-          </fieldset>
-          <fieldset>
-            <input placeholder="Your Phone Number" type="tel" tabindex="2" required>
-          </fieldset>
-          <fieldset>
-            <input placeholder="Your Address" type="text" tabindex="3" required>
-          </fieldset>
-          <fieldset>
-            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
-          </fieldset>
+          <div class="form-field">{{ form.name.label }} {{ form.name(size=20) }}
+            {% if form.name.errors %}
+              <ul class="errors">
+                {% for error in form.name.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div onchange="this.value=addSpaces(this.value)" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" class="form-field">{{ form.tel.label }} {{ form.tel }}
+            {% if form.tel.errors %}
+              <ul class="errors">
+                {% for error in form.tel.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="form-field">{{ form.body.label }} {{ form.body }}
+            {% if form.body.errors %}
+              <ul class="errors">
+                {% for error in form.body.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          {{ form.submit }}
         </form>
       </div>
     </div>
@@ -108,7 +65,7 @@ body {
             <input placeholder="Your name" type="text" tabindex="1" required autofocus>
           </fieldset>
           <fieldset>
-            <input placeholder="Your Phone Number" type="tel" tabindex="2" required>
+            <input onkeypress="return isNumberKey(event);this.value=addSpaces(this.value)" placeholder="Your Phone Number" type="tel" tabindex="2" required>
           </fieldset>
           <fieldset>
             <input placeholder="Your Address" type="text" tabindex="3" required>
@@ -156,9 +113,9 @@ body {
   <div class="w3-content">
     <div class="w3-twothird">
       <h1>Help your community</h1>
-      <h5 class="w3-padding-32">Help your elderly neighbors stay safe from Covid-19 in your community. Deliver groceries, medicine, and staples when you get them for yourself and drop off at your neighbor's door.</h5>
+      <h5 class="w3-padding-32">Help your elderly neighbors stay safe from COVID-19 in your community. Deliver groceries, medicine, and staples when you get them for yourself and drop off at your neighbor's door.</h5>
 
-      <p class="w3-text-grey">Covid-19 disproportionally affects the elderly with near 30% hospitalization and 9% mortality rate. Help keep our elders safe.</p>
+      <p class="w3-text-grey">COVID-19 disproportionally affects the elderly with near 30% hospitalization and 9% mortality rate. Help keep our elders safe.</p>
     </div>
 
     <div class="w3-third w3-center">
@@ -166,7 +123,9 @@ body {
     </div>
   </div>
 </div>
+{% endblock %}
 
+{% block javascript %}
 <script>
 // Used to toggle the menu on small screens when clicking on the menu button
 function myFunction() {
@@ -193,7 +152,21 @@ function closereqNav() {
 function closedelNav() {
   document.getElementById("deloverlay").style.height = "0%";
 }
+
+function addSpaces(initial){
+        initial = Number(initial)
+        result = initial.toLocaleString()
+        return result;
+}
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
 </script>
+{% endblock %}
 
 </body>
 </html>
