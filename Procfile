@@ -1,1 +1,1 @@
-web: gunicorn coronahelp.wsgi:server
+web: gunicorn coronahelp.wsgi:app
