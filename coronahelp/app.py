@@ -3,8 +3,6 @@ from flask import Flask, url_for, render_template, redirect
 # from forms import ContactForm
 
 app = Flask(__name__, instance_relative_config=False)
-app.config.from_object('config.Config')
-
 
 @app.route('/')
 def home():
