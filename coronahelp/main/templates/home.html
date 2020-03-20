@@ -8,16 +8,70 @@
 <link rel="stylesheet" href="../static/request.css">
 {% endblock %}
 
-{% block content %}
-<body>
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+<script>
+  // Used to toggle the menu on small screens when clicking on the menu button
+  function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+
+  // console.log("qnwjfiengefvjnfji")
+
+  // document.getElementById("reqclosebtn").addEventListener("click", closereqNav, false);
+  // document.getElementById("delclosebtn").addEventListener("click", closedelNav, false);
+  // document.getElementById("reqopenbtn").addEventListener("click", openreqNav, false);
+  // document.getElementById("delopenbtn").addEventListener("click", opendelNav, false);
+
+
+  function openreqNav() {
+    document.getElementById("reqoverlay").style.height = "100%";
+  }
+
+  function opendelNav() {
+    document.getElementById("deloverlay").style.height = "100%";
+  }
+
+  function closereqNav() {
+    document.getElementById("reqoverlay").style.height = "0%";
+  }
+
+  function closedelNav() {
+    document.getElementById("deloverlay").style.height = "0%";
+  }
+
+  function addSpaces(initial){
+          initial = Number(initial)
+          result = initial.toLocaleString()
+          return result;
+  }
+
+  function isNumberKey(evt){
+      var charCode = (evt.which) ? evt.which : evt.keyCode
+      if (charCode > 31 && (charCode < 48 || charCode > 57))
+          return false;
+      return true;
+  }
+</script>
+{% endblock %}
+
+{% block content %}
 <!-- Overlay req -->
 <div id="reqoverlay" class="overlay">
   <div class="overlay-content">
     <div class="nerb">
-      <a href="javascript:void(0)" class="closebtn" onclick="closereqNav()">&times;</a>
+      <a href="javascript:void(0)" class="closebtn" id="reqclosebtn" onclick="javascript:closereqNav()">&times;</a>
+      <!-- <a href="javascript:void(0)" class="closebtn" id="reqclosebtn">&times;</a> -->
       <div class="container">
-        <form id="contact" action="/" method="POST">
+        <form id="contact" action="" method="POST">
           <h3>Request help in your neighborhood</h3>
           <div class="form-field">{{ form.name.label }} {{ form.name(size=20) }}
             {% if form.name.errors %}
@@ -28,7 +82,7 @@
               </ul>
             {% endif %}
           </div>
-          <div onchange="this.value=addSpaces(this.value)" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" class="form-field">{{ form.tel.label }} {{ form.tel }}
+          <div onkeypress="return isNumberKey(event);this.value=addSpaces(this.value)" onchange="this.value=addSpaces(this.value)" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" class="form-field">{{ form.tel.label }} {{ form.tel }}
             {% if form.tel.errors %}
               <ul class="errors">
                 {% for error in form.tel.errors %}
@@ -37,16 +91,16 @@
               </ul>
             {% endif %}
           </div>
-          <div class="form-field">{{ form.body.label }} {{ form.body }}
-            {% if form.body.errors %}
+          <div class="form-field">{{ form.address.label }} {{ form.address }}
+            {% if form.address.errors %}
               <ul class="errors">
-                {% for error in form.body.errors %}
+                {% for error in form.address.errors %}
                   <li>{{ error }}</li>
                 {% endfor %}
               </ul>
             {% endif %}
           </div>
-          {{ form.submit }}
+          <div class="form-field">{{ form.submit }}</div>
         </form>
       </div>
     </div>
@@ -57,9 +111,10 @@
 <div id="deloverlay" class="overlay">
   <div class="overlay-content">
     <div class="nerb">
-      <a href="javascript:void(0)" class="closebtn" onclick="closedelNav()">&times;</a>
+      <a href="javascript:void(0)" class="closebtn" id="delclosebtn" onclick="javascript:closedelNav()">&times;</a>
+      <!-- <a href="javascript:void(0)" class="closebtn" id="delclosebtn">&times;</a> -->
       <div class="container">
-        <form id="contact" action="" method="post">
+        <form id="contact" action="/" method="post">
           <h3>Deliver and help in your neighborhood</h3>
           <fieldset>
             <input placeholder="Your name" type="text" tabindex="1" required autofocus>
@@ -85,18 +140,12 @@
   <div class="w3-bar w3-red w3-card w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 4</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Cancel A Form</a>
   </div>
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href=# class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
+    <a href=# class="w3-bar-item w3-button w3-padding-large">Cancel A Form</a>
   </div>
 </div>
 
@@ -104,8 +153,10 @@
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
   <h1 class="w3-margin w3-jumbo">CORONAHELP</h1>
   <p class="w3-xlarge">Help deliver groceries and medicine to elderly in your community</p>
-  <button onclick="openreqNav()" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Request Help</button>
-  <button onclick="opendelNav()" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Give Help</button>
+  <button onclick="javascript:openreqNav()" id="reqopenbtn" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Request Help</button>
+  <button onclick="javascript:opendelNav()" id="delopenbtn" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Give Help</button>
+  <!-- <button id="reqopenbtn" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Request Help</button> -->
+  <!-- <button id="delopenbtn" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Give Help</button> -->
 </header>
 
 <!-- First Grid -->
@@ -119,54 +170,8 @@
     </div>
 
     <div class="w3-third w3-center">
-      <i class="fa fa-anchor w3-padding-64 w3-text-red"></i>
+      <i class="fa w3-padding-64 w3-text-red"></i>
     </div>
   </div>
 </div>
 {% endblock %}
-
-{% block javascript %}
-<script>
-// Used to toggle the menu on small screens when clicking on the menu button
-function myFunction() {
-  var x = document.getElementById("navDemo");
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-  } else {
-    x.className = x.className.replace(" w3-show", "");
-  }
-}
-
-function openreqNav() {
-  document.getElementById("reqoverlay").style.height = "100%";
-}
-
-function opendelNav() {
-  document.getElementById("deloverlay").style.height = "100%";
-}
-
-function closereqNav() {
-  document.getElementById("reqoverlay").style.height = "0%";
-}
-
-function closedelNav() {
-  document.getElementById("deloverlay").style.height = "0%";
-}
-
-function addSpaces(initial){
-        initial = Number(initial)
-        result = initial.toLocaleString()
-        return result;
-}
-
-function isNumberKey(evt){
-    var charCode = (evt.which) ? evt.which : evt.keyCode
-    if (charCode > 31 && (charCode < 48 || charCode > 57))
-        return false;
-    return true;
-}
-</script>
-{% endblock %}
-
-</body>
-</html>

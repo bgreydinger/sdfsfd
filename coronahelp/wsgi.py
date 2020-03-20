@@ -1,5 +1,5 @@
 """App entry point."""
-from main.__init__ import create_app
+from main import create_app
 
 app = create_app()
 
