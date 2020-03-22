@@ -8,61 +8,6 @@
 <link rel="stylesheet" href="../static/request.css">
 {% endblock %}
 
-{% block javascript %}
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-<script>
-  // Used to toggle the menu on small screens when clicking on the menu button
-  function myFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-      x.className += " w3-show";
-    } else {
-      x.className = x.className.replace(" w3-show", "");
-    }
-  }
-
-  // console.log("qnwjfiengefvjnfji")
-
-  // document.getElementById("reqclosebtn").addEventListener("click", closereqNav, false);
-  // document.getElementById("delclosebtn").addEventListener("click", closedelNav, false);
-  // document.getElementById("reqopenbtn").addEventListener("click", openreqNav, false);
-  // document.getElementById("delopenbtn").addEventListener("click", opendelNav, false);
-
-
-  function openreqNav() {
-    document.getElementById("reqoverlay").style.height = "100%";
-  }
-
-  function opendelNav() {
-    document.getElementById("deloverlay").style.height = "100%";
-  }
-
-  function closereqNav() {
-    document.getElementById("reqoverlay").style.height = "0%";
-  }
-
-  function closedelNav() {
-    document.getElementById("deloverlay").style.height = "0%";
-  }
-
-  function addSpaces(initial){
-          initial = Number(initial)
-          result = initial.toLocaleString()
-          return result;
-  }
-
-  function isNumberKey(evt){
-      var charCode = (evt.which) ? evt.which : evt.keyCode
-      if (charCode > 31 && (charCode < 48 || charCode > 57))
-          return false;
-      return true;
-  }
-</script>
-{% endblock %}
-
 {% block content %}
 <!-- Overlay req -->
 <div id="reqoverlay" class="overlay">
@@ -72,6 +17,7 @@
       <!-- <a href="javascript:void(0)" class="closebtn" id="reqclosebtn">&times;</a> -->
       <div class="container">
         <form id="contact" action="" method="POST">
+          {{ form.csrf_token }}
           <h3>Request help in your neighborhood</h3>
           <div class="form-field">{{ form.name.label }} {{ form.name(size=20) }}
             {% if form.name.errors %}
@@ -174,4 +120,72 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+  // Used to toggle the menu on small screens when clicking on the menu button
+  function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+
+  // console.log("qnwjfiengefvjnfji")
+
+  // document.getElementById("reqclosebtn").addEventListener("click", closereqNav, false);
+  // document.getElementById("delclosebtn").addEventListener("click", closedelNav, false);
+  // document.getElementById("reqopenbtn").addEventListener("click", openreqNav, false);
+  // document.getElementById("delopenbtn").addEventListener("click", opendelNav, false);
+
+  var iferrors = $('#errors-html').data().name;
+
+  console.log(iferrors)
+
+  if (iferrors == 1) {
+    console.log("what")
+    document.getElementById("reqoverlay").style.transition = "0s";
+    document.getElementById("reqoverlay").style.height = "100%";
+  }
+
+  function openreqNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("reqoverlay").style.height = "100%";
+  }
+
+  function opendelNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("deloverlay").style.height = "100%";
+  }
+
+  function closereqNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("reqoverlay").style.height = "0%";
+  }
+
+  function closedelNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("deloverlay").style.height = "0%";
+  }
+
+  function addSpaces(initial){
+          initial = Number(initial)
+          result = initial.toLocaleString()
+          return result;
+  }
+
+  function isNumberKey(evt){
+      var charCode = (evt.which) ? evt.which : evt.keyCode
+      if (charCode > 31 && (charCode < 48 || charCode > 57))
+          return false;
+      return true;
+  }
+</script>
 {% endblock %}

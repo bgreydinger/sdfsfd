@@ -20,7 +20,8 @@ class ContactForm(FlaskForm):
     name = StringField('Name', [
         DataRequired()])
     tel = StringField('Telephone Number', [
-        DataRequired()])
+        DataRequired(),
+        Length(min=12, max=12, message='Your telephone number is invalid.')])
     address = TextAreaField('Home Address', [
         DataRequired(),
         Length(min=4, message='Your address is too short.')])
