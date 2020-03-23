@@ -1,5 +1,25 @@
 <!DOCTYPE html>
 
+<?php
+define('SITE_KEY', '6LeRCuMUAAAAAEWkxJ1IsbM4h-RQbGuxDxCXmdtr');
+define('SECRET_KEY', '6LeRCuMUAAAAAL4pYIgJRNGxOv737vr2hLLFvGeU');
+
+if($_POST){
+    function getCaptcha($SecretKey){
+        $Response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".SECRET_KEY."&response={$SecretKey}");
+        $Return = json_decode($Response);
+        return $Return;
+    }
+    $Return = getCaptcha($_POST['g-recaptcha-response']);
+    if($Return->success == true && $Return->score > 0.5){
+        echo "Success!";
+    }else{
+        echo "You are a Robot!!";
+    }
+}
+
+?>
+
 <html lang="en">
 
   <head>
@@ -9,6 +29,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6LeRCuMUAAAAAEWkxJ1IsbM4h-RQbGuxDxCXmdtr"></script>
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,500" rel="stylesheet">
+    <script>
+      grecaptcha.ready(function() {
+        grecaptcha.execute('<?php echo SITE_KEY; ?>', {action: 'homepage'}).then(function(token) {
+          document.getElementById('g-recaptcha-response').value=token;
+        });
+      });
+    </script>
   </head>
 
   <body class="{{template}}">

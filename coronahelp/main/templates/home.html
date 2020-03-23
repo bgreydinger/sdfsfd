@@ -16,37 +16,38 @@
       <a href="javascript:void(0)" class="closebtn" id="reqclosebtn" onclick="javascript:closereqNav()">&times;</a>
       <!-- <a href="javascript:void(0)" class="closebtn" id="reqclosebtn">&times;</a> -->
       <div class="container">
-        <form id="contact" action="" method="POST">
-          {{ form.csrf_token }}
-          <h3>Request help in your neighborhood</h3>
-          <div class="form-field">{{ form.name.label }} {{ form.name(size=20) }}
-            {% if form.name.errors %}
+        <form id="contact" action="{{ url_for('req') }}" method="POST">
+          {{ reqform.csrf_token }}
+          <!--h3>HELP MEEEE</h3-->
+          <h3 onload="grecaptcha.execute();">Request help in your neighborhood</h3>
+          <div class="form-field">{{ reqform.name.label }} {{ reqform.name(size=20) }}
+            {% if reqform.name.errors %}
               <ul class="errors">
-                {% for error in form.name.errors %}
+                {% for error in reqform.name.errors %}
                   <li>{{ error }}</li>
                 {% endfor %}
               </ul>
             {% endif %}
           </div>
-          <div onkeypress="return isNumberKey(event);this.value=addSpaces(this.value)" onchange="this.value=addSpaces(this.value)" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" class="form-field">{{ form.tel.label }} {{ form.tel }}
-            {% if form.tel.errors %}
+          <div class="form-field">{{ reqform.tel.label }} {{ reqform.tel }}
+            {% if reqform.tel.errors %}
               <ul class="errors">
-                {% for error in form.tel.errors %}
+                {% for error in reqform.tel.errors %}
                   <li>{{ error }}</li>
                 {% endfor %}
               </ul>
             {% endif %}
           </div>
-          <div class="form-field">{{ form.address.label }} {{ form.address }}
-            {% if form.address.errors %}
+          <div class="form-field" style="height:90px;">{{ reqform.address.label }} {{ reqform.address }}
+            {% if reqform.address.errors %}
               <ul class="errors">
-                {% for error in form.address.errors %}
+                {% for error in reqform.address.errors %}
                   <li>{{ error }}</li>
                 {% endfor %}
               </ul>
             {% endif %}
           </div>
-          <div class="form-field">{{ form.submit }}</div>
+          <div class="form-field">{{ reqform.submit }}</div>
         </form>
       </div>
     </div>
@@ -60,20 +61,37 @@
       <a href="javascript:void(0)" class="closebtn" id="delclosebtn" onclick="javascript:closedelNav()">&times;</a>
       <!-- <a href="javascript:void(0)" class="closebtn" id="delclosebtn">&times;</a> -->
       <div class="container">
-        <form id="contact" action="/" method="post">
-          <h3>Deliver and help in your neighborhood</h3>
-          <fieldset>
-            <input placeholder="Your name" type="text" tabindex="1" required autofocus>
-          </fieldset>
-          <fieldset>
-            <input onkeypress="return isNumberKey(event);this.value=addSpaces(this.value)" placeholder="Your Phone Number" type="tel" tabindex="2" required>
-          </fieldset>
-          <fieldset>
-            <input placeholder="Your Address" type="text" tabindex="3" required>
-          </fieldset>
-          <fieldset>
-            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
-          </fieldset>
+        <form id="contact" action="{{ url_for('delv') }}" method="POST">
+          {{ reqform.csrf_token }}
+          <h3 onload="grecaptcha.execute();">Deliver and help in your neighborhood</h3>
+          <div class="form-field">{{ delform.name.label }} {{ delform.name(size=20) }}
+            {% if delform.name.errors %}
+              <ul class="errors">
+                {% for error in delform.name.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="form-field">{{ delform.tel.label }} {{ delform.tel }}
+            {% if delform.tel.errors %}
+              <ul class="errors">
+                {% for error in delform.tel.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="form-field" style="height: 90px;">{{ delform.address.label }} {{ delform.address }}
+            {% if delform.address.errors %}
+              <ul class="errors">
+                {% for error in delform.address.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="form-field">{{ delform.submit }}</div>
         </form>
       </div>
     </div>
@@ -147,12 +165,14 @@
 
   var iferrors = $('#errors-html').data().name;
 
-  console.log(iferrors)
-
   if (iferrors == 1) {
-    console.log("what")
     document.getElementById("reqoverlay").style.transition = "0s";
     document.getElementById("reqoverlay").style.height = "100%";
+  }
+
+  if (iferrors == 2) {
+    document.getElementById("deloverlay").style.transition = "0s";
+    document.getElementById("deloverlay").style.height = "100%";
   }
 
   function openreqNav() {

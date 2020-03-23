@@ -1,4 +1,3 @@
-
 """Form class declaration."""
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import (StringField,
@@ -14,15 +13,28 @@ from wtforms.validators import (DataRequired,
                                 URL)
 
 
-class ContactForm(FlaskForm):
+class ReqForm(FlaskForm):
     """Contact form."""
 
     name = StringField('Name', [
         DataRequired()])
-    tel = StringField('Telephone Number', [
+    tel = StringField('Email Address', [
+        Email(message='Not a valid email address.'),
+        DataRequired()])
+    address = StringField('Home Address', [
         DataRequired(),
-        Length(min=12, max=12, message='Your telephone number is invalid.')])
-    address = TextAreaField('Home Address', [
+        Length(min=4, message='Your address is too short.')])
+    submit = SubmitField('Submit')
+
+class DelForm(FlaskForm):
+    """Contact form."""
+
+    name = StringField('Name', [
+        DataRequired()])
+    tel = StringField('Email Address', [
+        Email(message='Not a valid email address.'),
+        DataRequired()])
+    address = StringField('Home Address', [
         DataRequired(),
         Length(min=4, message='Your address is too short.')])
     submit = SubmitField('Submit')

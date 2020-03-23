@@ -1,32 +1,53 @@
 from flask import url_for, render_template, redirect, request
 from flask import current_app as app
-from .forms import ContactForm
-
-# @app.route('/', methods=('GET', 'POST'))
-# def home():
-#     form = ContactForm()
-#     if form.validate_on_submit():
-#         return redirect(url_for('success'))
-#     return render_template('home.html',
-#                            form=form)
-#
-#
-# @app.route('/success', methods=('GET', 'POST'))
-# def success():
-#     return render_template('success.html',
-#                            template='success-template')
+from .forms import *
+from .filewriter import *
+from .mailserver import *
 
 @app.route('/', methods=('GET', 'POST'))
 def home():
-    form = ContactForm()
-    if form.validate_on_submit():
+    reqform = ReqForm()
+    delform = DelForm()
+    error = 0
+    return render_template('home.html',
+                           reqform=reqform,
+                           delform=delform,
+                           errors=error)
+
+
+@app.route('/req', methods=('GET', 'POST'))
+def req():
+    reqform = ReqForm()
+    delform = DelForm()
+    if reqform.validate_on_submit():
+        appendfile("req.csv", reqform)
+        mail(reqform.name.data, reqform.tel.data, "recipient")
         return redirect(url_for('success'))
-    elif request.method == "POST" and not form.validate():
+    elif request.method == "POST" and not reqform.validate():
         error = 1
     else:
         error = 0
     return render_template('home.html',
-                           form=form,
+                           reqform=reqform,
+                           delform=delform,
+                           errors = error)
+
+
+@app.route('/delv', methods=('GET', 'POST'))
+def delv():
+    reqform = ReqForm()
+    delform = DelForm()
+    if delform.validate_on_submit():
+        appendfile("del.csv", delform)
+        mail(delform.name.data, delform.tel.data, "delivery")
+        return redirect(url_for('success'))
+    elif request.method == "POST" and not delform.validate():
+        error = 2
+    else:
+        error = 0
+    return render_template('home.html',
+                           reqform=reqform,
+                           delform=delform,
                            errors = error)
 
 

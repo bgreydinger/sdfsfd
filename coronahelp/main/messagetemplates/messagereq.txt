@@ -1,0 +1,5 @@
+Hello ${PERSON_NAME}, thank you for signing up for Coronahelp as a recipient!
+
+Please respond to this email with the items that you would like, and you will be matched with a delivery person shortly.
+
+If this is not you, click __this link__

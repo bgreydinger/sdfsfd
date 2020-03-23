@@ -11,6 +11,8 @@ def create_app():
 
     with app.app_context():
         # Import parts of our application
-        from . import routes
+        from . import routes, filewriter
+
+        filewriter.createfiles()
 
         return app

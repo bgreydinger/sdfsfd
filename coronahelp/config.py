@@ -17,3 +17,7 @@ class Config:
     # Static Assets
     STATIC_FOLDER = environ.get('STATIC_FOLDER')
     TEMPLATES_FOLDER = environ.get('TEMPLATES_FOLDER')
+
+    # Mail Server Creds
+    MAIL_ADDRESS = environ.get('MAIL_ADDRESS')
+    MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
