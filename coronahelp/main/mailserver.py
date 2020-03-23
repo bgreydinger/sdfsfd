@@ -18,7 +18,7 @@ def mail(name, email, job):
     else:
         message = 'messagereq.txt'
 
-    with open("main/" + message, 'r', encoding='utf-8') as template_file:
+    with open("main/messagetemplates/" + message, 'r', encoding='utf-8') as template_file:
         message_template = Template(template_file.read())
 
     # set up the SMTP server

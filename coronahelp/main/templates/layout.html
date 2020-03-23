@@ -1,25 +1,5 @@
 <!DOCTYPE html>
 
-<?php
-define('SITE_KEY', '6LeRCuMUAAAAAEWkxJ1IsbM4h-RQbGuxDxCXmdtr');
-define('SECRET_KEY', '6LeRCuMUAAAAAL4pYIgJRNGxOv737vr2hLLFvGeU');
-
-if($_POST){
-    function getCaptcha($SecretKey){
-        $Response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".SECRET_KEY."&response={$SecretKey}");
-        $Return = json_decode($Response);
-        return $Return;
-    }
-    $Return = getCaptcha($_POST['g-recaptcha-response']);
-    if($Return->success == true && $Return->score > 0.5){
-        echo "Success!";
-    }else{
-        echo "You are a Robot!!";
-    }
-}
-
-?>
-
 <html lang="en">
 
   <head>
@@ -31,8 +11,10 @@ if($_POST){
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,500" rel="stylesheet">
     <script>
       grecaptcha.ready(function() {
-        grecaptcha.execute('<?php echo SITE_KEY; ?>', {action: 'homepage'}).then(function(token) {
-          document.getElementById('g-recaptcha-response').value=token;
+        grecaptcha.execute('6LeRCuMUAAAAAEWkxJ1IsbM4h-RQbGuxDxCXmdtr', {action: 'homepage'})
+        .then(function(token) {
+          //appending the token to the end of the form so that the thing can go in and submit the token in the background and find the number
+          document.getElementById("contact").appendChild(document.CreateElement(`<input type="hidden" name="gtoken" value=${token}`));
         });
       });
     </script>
