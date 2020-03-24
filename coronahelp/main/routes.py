@@ -9,6 +9,8 @@ def home():
     reqform = ReqForm()
     delform = DelForm()
     error = 0
+    # if '''click on button''':
+    #     return redirect(url_for('cancel'))
     return render_template('home.html',
                            reqform=reqform,
                            delform=delform,
@@ -54,3 +56,14 @@ def delv():
 @app.route('/success')
 def success():
     return render_template('success.html')
+
+
+@app.route('/cancel', methods=('GET', 'POST'))
+def cancel():
+    reqform = ReqForm()
+    delform = DelForm()
+    error = 0
+    return render_template('cancel.html',
+                           reqform=reqform,
+                           delform=delform,
+                           errors=error)
