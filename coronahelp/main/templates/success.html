@@ -1,8 +1,137 @@
 {% extends 'layout.html' %}
 
+{% block styles %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../static/request.css">
+{% endblock %}
+
 {% block content %}
-<div class="success-wrapper">
-  <h1>SUCCESS!</h1>
-  <p>You've submitted a valid form. Your mother would be very proud of you.</p>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Cancel A Form</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href=# class="w3-bar-item w3-button w3-padding-large">Cancel A Form</a>
+  </div>
 </div>
+
+<!-- Header -->
+<header class="w3-container w3-red w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">CORONAHELP</h1>
+  <p class="w3-xlarge">Help deliver groceries and medicine to elderly in your community</p>
+
+</header>
+
+<div class="success-wrapper" style="float: center">
+<center>  <h1>SUCCESS!</h1></center>
+  <center><p>You've submitted a valid form. Your mother would be very proud of you.</p></center>
+  <br>
+  <strong><center><h5>Please check your email for a confirmation message.</h5></center></strong>
+</div>
+
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Help your community</h1>
+      <h5 class="w3-padding-32">Help your elderly neighbors stay safe from COVID-19 in your community. Follow these 5 steps:</h5>
+      <ol>
+        <li>Wash your hands regularly for 20 seconds, with soap and water or alcohol-based hand rub</li>
+        <li>Cover your nose and mouth with a disposable tissue or flexed elbow when you cough or sneeze</li>
+        <li>Avoid close contact (1 meter or 3 feet) with people who are unwell</li>
+        <li>Stay home and self-isolate from others in the household if you feel unwell</li>
+        <li>Don't touch your face before washing your hands for 20 seconds with soap and water</li>
+      </ol>
+      <h5>Learn more on <a href="who.int">this page</a> for the World Health Organization.</h5>
+
+      <br>
+
+      <p class="w3-text-grey">COVID-19 disproportionally affects the elderly with near 30% hospitalization and 9% mortality rate. Help keep our elders safe.</p>
+    </div>
+
+    <div class="w3-third w3-center">
+      <i class="fa w3-padding-64 w3-text-red"></i>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+  // Used to toggle the menu on small screens when clicking on the menu button
+  function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+
+  // console.log("qnwjfiengefvjnfji")
+
+  // document.getElementById("reqclosebtn").addEventListener("click", closereqNav, false);
+  // document.getElementById("delclosebtn").addEventListener("click", closedelNav, false);
+  // document.getElementById("reqopenbtn").addEventListener("click", openreqNav, false);
+  // document.getElementById("delopenbtn").addEventListener("click", opendelNav, false);
+
+  var iferrors = $('#errors-html').data().name;
+
+  if (iferrors == 1) {
+    document.getElementById("reqoverlay").style.transition = "0s";
+    document.getElementById("reqoverlay").style.height = "100%";
+  }
+
+  if (iferrors == 2) {
+    document.getElementById("deloverlay").style.transition = "0s";
+    document.getElementById("deloverlay").style.height = "100%";
+  }
+
+  function openreqNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("reqoverlay").style.height = "100%";
+  }
+
+  function opendelNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("deloverlay").style.height = "100%";
+  }
+
+  function closereqNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("reqoverlay").style.height = "0%";
+  }
+
+  function closedelNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("deloverlay").style.height = "0%";
+  }
+
+  function addSpaces(initial){
+          initial = Number(initial)
+          result = initial.toLocaleString()
+          return result;
+  }
+
+  function isNumberKey(evt){
+      var charCode = (evt.which) ? evt.which : evt.keyCode
+      if (charCode > 31 && (charCode < 48 || charCode > 57))
+          return false;
+      return true;
+  }
+</script>
 {% endblock %}
