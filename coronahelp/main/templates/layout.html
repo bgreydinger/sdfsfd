@@ -10,6 +10,16 @@
     <script src="https://www.google.com/recaptcha/api.js?render=6LeRCuMUAAAAAEWkxJ1IsbM4h-RQbGuxDxCXmdtr"></script>
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,500" rel="stylesheet">
     <script>
+        // // execute function and output the token into the browser console
+        // grecaptcha.ready(function() {
+        // 	grecaptcha.execute('6LeRCuMUAAAAAEWkxJ1IsbM4h-RQbGuxDxCXmdtr', {action: 'homepage'}).then(function(token) {
+        // 		console.log(token);
+        // 	});
+        // });
+        // // used for automatically binding the challenge to a button/form
+        // function onSubmit(token) {
+        // 	document.getElementById("contact").submit();
+        // };
       grecaptcha.ready(function() {
         grecaptcha.execute('6LeRCuMUAAAAAEWkxJ1IsbM4h-RQbGuxDxCXmdtr', {action: 'homepage'})
         .then(function(token) {
