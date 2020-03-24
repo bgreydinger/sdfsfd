@@ -36,13 +36,14 @@ form {
 
 .form-field {
   position: relative;
-  height:50px;
+  height:80px;
 }
 
 .success-wrapper {
   background: white;
-  width: 350px;
+  width: 500px;
   box-shadow: 0 0 5px rgba(65, 67, 144, 0.1);
+  margin-left: 50px;
   padding: 50px;
 }
 
