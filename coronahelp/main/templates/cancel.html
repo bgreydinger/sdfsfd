@@ -1,0 +1,209 @@
+{% extends 'layout.html' %}
+
+{% block styles %}
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../static/request.css">
+{% endblock %}
+
+{% block content %}
+<!-- Overlay req -->
+<div id="reqoverlay" class="overlay">
+  <div class="overlay-content">
+    <div class="nerb">
+      <a href="javascript:void(0)" class="closebtn" id="reqclosebtn" onclick="javascript:closereqNav()">&times;</a>
+      <!-- <a href="javascript:void(0)" class="closebtn" id="reqclosebtn">&times;</a> -->
+      <div class="container">
+        <form id="contact" action="{{ url_for('req') }}" method="POST">
+          {{ reqform.csrf_token }}
+          <!--h3>HELP MEEEE</h3-->
+          <h3 onload="grecaptcha.execute();">Cancel your request for help</h3>
+          <div class="form-field">{{ reqform.name.label }} {{ reqform.name(size=20) }}
+            {% if reqform.name.errors %}
+              <ul class="errors">
+                {% for error in reqform.name.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="form-field">{{ reqform.tel.label }} {{ reqform.tel }}
+            {% if reqform.tel.errors %}
+              <ul class="errors">
+                {% for error in reqform.tel.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="form-field" style="height:90px;">{{ reqform.address.label }} {{ reqform.address }}
+            {% if reqform.address.errors %}
+              <ul class="errors">
+                {% for error in reqform.address.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="form-field">{{ reqform.submit }}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay del -->
+<div id="deloverlay" class="overlay">
+  <div class="overlay-content">
+    <div class="nerb">
+      <a href="javascript:void(0)" class="closebtn" id="delclosebtn" onclick="javascript:closedelNav()">&times;</a>
+      <!-- <a href="javascript:void(0)" class="closebtn" id="delclosebtn">&times;</a> -->
+      <div class="container">
+        <form id="contact" action="{{ url_for('delv') }}" method="POST">
+          {{ reqform.csrf_token }}
+          <h3 onload="grecaptcha.execute();">Cancel your form to deliver</h3>
+          <div class="form-field">{{ delform.name.label }} {{ delform.name(size=20) }}
+            {% if delform.name.errors %}
+              <ul class="errors">
+                {% for error in delform.name.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="form-field">{{ delform.tel.label }} {{ delform.tel }}
+            {% if delform.tel.errors %}
+              <ul class="errors">
+                {% for error in delform.tel.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="form-field" style="height: 90px;">{{ delform.address.label }} {{ delform.address }}
+            {% if delform.address.errors %}
+              <ul class="errors">
+                {% for error in delform.address.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="form-field">{{ delform.submit }}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Home</a>
+    <a href="cancel" class="w3-bar-item w3-button w3-padding-large w3-white">Cancel A Form</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href=# class="w3-bar-item w3-button w3-padding-large">Cancel A Form</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-red w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">CORONAHELP</h1>
+  <p class="w3-xlarge">Help deliver groceries and medicine to elderly in your community</p>
+  <button onclick="javascript:openreqNav()" id="reqopenbtn" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Cancel your Request for Help</button>
+  <button onclick="javascript:opendelNav()" id="delopenbtn" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Cancel your Form to Deliver</button>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Help your community</h1>
+      <h5 class="w3-padding-32">Help your elderly neighbors stay safe from COVID-19 in your community. To find information on how to help yourself stay healthy, see the <a href="who.int">World Health Organization's official page here</a>.</h5>
+
+      <p class="w3-text-grey">COVID-19 disproportionally affects the elderly with near 30% hospitalization and 9% mortality rate. Help keep our elders safe.</p>
+    </div>
+
+    <div class="w3-third w3-center">
+      <i class="fa w3-padding-64 w3-text-red"></i>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+  // Used to toggle the menu on small screens when clicking on the menu button
+  function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+
+  // console.log("qnwjfiengefvjnfji")
+
+  // document.getElementById("reqclosebtn").addEventListener("click", closereqNav, false);
+  // document.getElementById("delclosebtn").addEventListener("click", closedelNav, false);
+  // document.getElementById("reqopenbtn").addEventListener("click", openreqNav, false);
+  // document.getElementById("delopenbtn").addEventListener("click", opendelNav, false);
+
+  var iferrors = $('#errors-html').data().name;
+
+  if (iferrors == 1) {
+    document.getElementById("reqoverlay").style.transition = "0s";
+    document.getElementById("reqoverlay").style.height = "100%";
+  }
+
+  if (iferrors == 2) {
+    document.getElementById("deloverlay").style.transition = "0s";
+    document.getElementById("deloverlay").style.height = "100%";
+  }
+
+  function openreqNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("reqoverlay").style.height = "100%";
+  }
+
+  function opendelNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("deloverlay").style.height = "100%";
+  }
+
+  function closereqNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("reqoverlay").style.height = "0%";
+  }
+
+  function closedelNav() {
+    document.getElementById("reqoverlay").style.transition = "0.5s";
+    document.getElementById("deloverlay").style.height = "0%";
+  }
+
+  function addSpaces(initial){
+          initial = Number(initial)
+          result = initial.toLocaleString()
+          return result;
+  }
+
+  function isNumberKey(evt){
+      var charCode = (evt.which) ? evt.which : evt.keyCode
+      if (charCode > 31 && (charCode < 48 || charCode > 57))
+          return false;
+      return true;
+  }
+</script>
+{% endblock %}
